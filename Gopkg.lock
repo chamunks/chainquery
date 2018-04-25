@@ -43,11 +43,6 @@
   revision = "31079b6807923eb23992c421b114992b95131b55"
 
 [[projects]]
-  name = "github.com/caarlos0/env"
-  packages = ["."]
-  revision = "0cf029d5748c52beb2c9d20c81880cb4bdf8f788"
-
-[[projects]]
   branch = "master"
   name = "github.com/denisenkom/go-mssqldb"
   packages = ["."]
@@ -366,6 +361,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "977f3af8d532881415132aa66311ed262a7f70648bad0600f7ef0d2017263866"
+  inputs-digest = "30c500a0ec4b838e9f6a06e3005626c5371d57a9b1312e8aefa3e483ac5e9a0e"
   solver-name = "gps-cdcl"
   solver-version = 1

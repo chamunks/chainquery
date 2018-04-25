@@ -9,12 +9,35 @@ import (
 	"github.com/lbryio/chainquery/lbrycrd"
 	"github.com/lbryio/chainquery/model"
 
+	"github.com/lbryio/chainquery/util"
 	"github.com/sirupsen/logrus"
 	"github.com/volatiletech/sqlboiler/queries/qm"
+	"time"
 )
 
 var blockHeight uint64
 var blocksToExpiration uint = 262974 //Hardcoded! https://lbry.io/faq/claimtrie-implementation
+
+func LbryCRDClaimTrieTest() {
+	names, err := lbrycrd.GetClaimsInTrie()
+	if err != nil {
+		panic(err)
+	}
+	wg := sync.WaitGroup{}
+	for i, claimedName := range names {
+
+		wg.Add(1)
+		go func(index int) {
+			defer util.TimeTrack(time.Now(), "getclaimsforname-"+strconv.Itoa(index), "always")
+			defer wg.Done()
+			_, err = lbrycrd.GetClaimsForName(claimedName.Name)
+			if err != nil {
+				logrus.Error("Test Errror: ", err)
+			}
+		}(i)
+	}
+	wg.Wait()
+}
 
 func ClaimTrieSync() {
 	logrus.Info("ClaimTrieSync: started... ")

@@ -13,12 +13,18 @@ import (
 	"github.com/lbryio/chainquery/lbrycrd"
 	"github.com/lbryio/chainquery/swagger/apiserver"
 
+	"github.com/lbryio/chainquery/daemon/jobs"
 	log "github.com/sirupsen/logrus"
 )
 
 var DebugMode bool
 
 func main() {
+	lbrycrdClient := lbrycrd.Init()
+	defer lbrycrdClient.Shutdown()
+	jobs.LbryCRDClaimTrieTest()
+	return
+
 	config.InitializeConfiguration()
 	//defer profile.Start(profile.ProfilePath(os.Getenv("HOME") + "/chainquery")).Stop()
 
